@@ -7,11 +7,12 @@ require 'open-uri'
 
 class Controller
 
-
+  attr_reader :cost
 
   def initialize
     @view = View.new
     @parkingtickets = ParkingTickets.new
+    @cost = Cost.new
     run
   end
 
@@ -21,7 +22,7 @@ class Controller
     plate = @view.get_plate
     info_by_plate = @parkingtickets.parse(plate)
     tickets_by_plate = @parkingtickets.add_tickets(info_by_plate)
-    @view.print_ticket_info(tickets_by_plate)
+    @view.print_ticket_info(tickets_by_plate, cost.cost_data)
   end
 
 
